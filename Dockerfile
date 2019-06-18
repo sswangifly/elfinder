@@ -10,6 +10,8 @@ RUN set -ex; \
 		libjpeg-dev \
 		libmagickwand-dev \
 		libpng-dev \
+		unzip \
+		Imagemagick \
 	; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
@@ -69,9 +71,12 @@ RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 ENV ELFINDER_VERSION 2.1.49
 
 RUN set -ex; \
-	curl -o elfinder.tar.gz -fSL "https://github.com/Studio-42/elFinder/archive/${ELFINDER_VERSION}.tar.gz"; \
+	curl -o elfinder.zip -fSL "https://github.com/Studio-42/elFinder/archive/2.1.49.zip"; \
 # upstream tarballs include ./elFinder-${ELFINDER_VERSION}/ so this gives us /var/www/html/elFinder-${ELFINDER_VERSION}/
-	tar -xzf elfinder.tar.gz -C /var/www/html/; \
-  mv /var/www/html/elFinder-${ELFINDER_VERSION}/* /var/www/html/; \
-	rm elfinder.tar.gz; \
-  rm -rf /var/www/html/elFinder-${ELFINDER_VERSION}
+	unzip elfinder.zip; \
+  	mv /var/www/html/elFinder-${ELFINDER_VERSION}/* /var/www/html/; \
+	rm elfinder.zip; \
+  	rm -rf /var/www/html/elFinder-${ELFINDER_VERSION}; \
+  	chown -R www-data:www-data * && echo "DirectoryIndex elfinder.html" >> .htaccess
+	
+VOLUME [ "/var/www/html/files" ]
