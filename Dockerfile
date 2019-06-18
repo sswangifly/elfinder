@@ -63,15 +63,13 @@ RUN { \
 		echo 'html_errors = Off'; \
 	} > /usr/local/etc/php/conf.d/error-logging.ini
 
-RUN a2enmod rewrite expires
-
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
 ENV ELFINDER_VERSION 2.1.49
 
 RUN set -ex; \
-	curl -o elfinder.zip -fSL "https://github.com/Studio-42/elFinder/archive/2.1.49.zip"; \
+	curl -o elfinder.zip -fSL "https://github.com/Studio-42/elFinder/archive/${ELFINDER_VERSION}.zip"; \
 # upstream tarballs include ./elFinder-${ELFINDER_VERSION}/ so this gives us /var/www/html/elFinder-${ELFINDER_VERSION}/
 	unzip elfinder.zip; \
   	mv /var/www/html/elFinder-${ELFINDER_VERSION}/* /var/www/html/; \
