@@ -64,7 +64,7 @@ RUN { \
 # Use the default production configuration
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 
-RUN apt-get install -y unzip
+RUN apt-get update; apt-get install -y unzip
 
 ENV ELFINDER_VERSION 2.1.49
 
