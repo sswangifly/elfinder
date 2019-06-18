@@ -11,7 +11,6 @@ RUN set -ex; \
 		libmagickwand-dev \
 		libpng-dev \
 		unzip \
-		Imagemagick \
 	; \
 	\
 	docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr; \
