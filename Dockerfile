@@ -73,6 +73,7 @@ RUN set -ex; \
 # upstream tarballs include ./elFinder-${ELFINDER_VERSION}/ so this gives us /var/www/html/elFinder-${ELFINDER_VERSION}/
 	unzip elfinder.zip; \
   	mv /var/www/html/elFinder-${ELFINDER_VERSION}/* /var/www/html/; \
+	mv php/connector.minimal.php-dist php/connector.minimal.php; \
 	rm elfinder.zip; \
   	rm -rf /var/www/html/elFinder-${ELFINDER_VERSION}; \
   	chown -R www-data:www-data * && echo "DirectoryIndex elfinder.html" >> .htaccess
